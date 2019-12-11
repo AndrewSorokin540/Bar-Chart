@@ -1,0 +1,8 @@
+canvas.chart{
+    display: block;
+    max-width: 100%;
+    background-color: #EFF0F1;
+    padding: 20px;
+    margin: 20px;
+    box-sizing: border-box;
+}
