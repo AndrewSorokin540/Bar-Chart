@@ -10,61 +10,22 @@ function App() {
         width={600} 
         height={300}
         statistics={[1,2,3,10,5]}
+        title="Изменяемый (вводите числа через запятую). Цветовая схема fullColorsCols"
+      />
+      <Canvas colorTheme='fullColorsCols' 
+        colsSpacing={20} 
+        width={600} 
+        height={300}
+        statistics={[1,2,3,10,5]}
+        title="Изменяемый пустой (просто нет начальных данных) Цветовая схема fullColorsCols"
       />
       <Canvas colorTheme='gradient' 
-        colsSpacing={5} 
-        width={500} 
-        height={500}
-        statistics={[25,77,15,84,135,62,83,14,]}
-      />
-      <Canvas colorTheme='gradient' 
-        colsSpacing={5} 
-        width={500} 
-        height={500}
-        statistics={[10,30,20]}
-      />
-      <Canvas colorTheme='fullColorsCols' 
-        colsSpacing={5} 
-        width={500} 
-        height={500}
-        statistics={[1,2,3,4,5,6,7,8,9,10]}
-      />
-      <Canvas colorTheme='fullColorsCols' 
-        colsSpacing={5} 
-        width={500} 
-        height={500}
-        statistics={[25,77,15,84,135,62,83,14,]}
-      />
-      <Canvas colorTheme='fullColorsCols' 
-        colsSpacing={5} 
-        width={500} 
-        height={500}
-        statistics={[10,30,20]}
-      />
-
-      <Canvas colorTheme='gradient' 
-        colsSpacing={5} 
-        width={350} 
-        height={200}
-        statistics={[25,77,15,84,135,62,83,14,]}
-      />
-      <Canvas colorTheme='gradient' 
-        colsSpacing={5} 
-        width={350} 
-        height={200}
-        statistics={[10,30,20]}
-      />
-      <Canvas colorTheme='fullColorsCols' 
-        colsSpacing={5} 
-        width={350} 
-        height={200}
-        statistics={[25,77,15,84,135,62,83,14,]}
-      />
-      <Canvas colorTheme='fullColorsCols' 
-        colsSpacing={5} 
-        width={350} 
-        height={200}
-        statistics={[10,30,20]}
+        colsSpacing={20} 
+        width={600} 
+        height={300}
+        statistics={[1,2,3,10,5]}
+        changeble={true}
+        title="Не изменяемый (просто скрыт инпут) Цветовая схема gradient"
       />
     </div>
   );

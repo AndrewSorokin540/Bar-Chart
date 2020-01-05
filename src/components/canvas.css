@@ -1,8 +1,24 @@
+.canvas-container input, .canvas-container select{
+    width: 100%;
+    font-size: 18px;
+    padding: 3px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.canvas-container{
+    vertical-align: top;
+    margin: 15px;
+}
+
 canvas.chart{
     display: block;
     max-width: 100%;
     background-color: #EFF0F1;
-    padding: 20px;
-    margin: 20px;
     box-sizing: border-box;
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+.hidden{
+    display: none;
 }

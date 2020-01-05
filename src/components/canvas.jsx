@@ -3,40 +3,21 @@ import './canvas.css'
 
 class Canvas extends React.Component {
 
-    componentDidMount() {
-        console.log(this.props);
-        // функция чтобы посчитать количество столбцов
-        const size = function(obj) {
-            var size = 0, key;
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-        };
-        
-        const colsCount = size(this.props.statistics);          // количество столбцов
-        const colWidth = this.props.width / colsCount;          // ширина колонки
-        const colsHeights = this.props.statistics;              // массив высот всех колонок
-        const canvasWidth = this.refs.canvas.width;             // ширина канваса
-        const canvasHeight = this.refs.canvas.height;           // высота канваса
-        const colsSpacing = this.props.colsSpacing;             // промежутки между колонками
+    state = {
+        colsSpacing: 10,
+        statistics: []
+    }
 
-
-        const ctx = this.refs.canvas.getContext('2d');
-
-
-        // ищем максимальное значение (это будет самый высокий столбец)
-        const maxColHeight = Math.max.apply(null, colsHeights);
-
-        // устанавливаем "единицу высоты"
-        const heightUnit = canvasHeight/maxColHeight;
-        
-        // создаем массив с относительными высотами столбцов
-        const relativeColsHeights = colsHeights.map(function(colsHeight) {
-            return colsHeight * heightUnit;
-        });
-
-
+    drawGist( 
+        ctx,
+        colsCount, 
+        relativeColsHeights,
+        canvasHeight,
+        canvasWidth,
+        colWidth,
+        colsSpacing,
+        colsHeights
+        ) {
         // отрисовываем столбцы
         for (let i = 0; i < colsCount; i++) {
             
@@ -82,9 +63,92 @@ class Canvas extends React.Component {
         }
     }
 
+    componentDidMount() {
+        
+        // функция чтобы посчитать количество столбцов
+        const size = function(obj) {
+            var size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+        
+        const colsCount = size(this.props.statistics);          // количество столбцов
+        const colWidth = this.props.width / colsCount;          // ширина колонки
+        const colsHeights = this.props.statistics;              // массив высот всех колонок
+        const canvasWidth = this.refs.canvas.width;             // ширина канваса
+        const canvasHeight = this.refs.canvas.height;           // высота канваса
+        const colsSpacing = this.props.colsSpacing;             // промежутки между колонками
+
+
+        const ctx = this.refs.canvas.getContext('2d');
+
+
+        // ищем максимальное значение (это будет самый высокий столбец)
+        const maxColHeight = Math.max( ...colsHeights );
+
+        // устанавливаем "единицу высоты"
+        const heightUnit = canvasHeight/maxColHeight;
+        
+        // создаем массив с относительными высотами столбцов
+        const relativeColsHeights = colsHeights.map(colsHeight => colsHeight * heightUnit);
+
+        this.drawGist(ctx, colsCount, relativeColsHeights, canvasHeight, canvasWidth, colWidth, 
+            colsSpacing, colsHeights);
+    }
+
+    componentDidUpdate() {
+        // функция чтобы посчитать количество столбцов
+        const size = function(obj) {
+            var size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+        
+        const colsCount = size(this.state.statistics);          // количество столбцов
+        const colWidth = this.props.width / colsCount;          // ширина колонки
+        const colsHeights = this.state.statistics;              // массив высот всех колонок
+        const canvasWidth = this.refs.canvas.width;             // ширина канваса
+        const canvasHeight = this.refs.canvas.height;           // высота канваса
+        const colsSpacing = this.state.colsSpacing;             // промежутки между колонками
+
+
+        const ctx = this.refs.canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+
+        // ищем максимальное значение (это будет самый высокий столбец)
+        const maxColHeight = Math.max( ...colsHeights );
+
+        // устанавливаем "единицу высоты"
+        const heightUnit = canvasHeight/maxColHeight;
+        
+        // создаем массив с относительными высотами столбцов
+        const relativeColsHeights = colsHeights.map(colsHeight => colsHeight * heightUnit);
+
+        this.drawGist(ctx, colsCount, relativeColsHeights, canvasHeight, canvasWidth, colWidth, 
+            colsSpacing, colsHeights);
+    }
+
+    handleChange = (event) => {
+        this.setState({statistics: event.target.value.split(',')});
+    }
+
     render() {
+        let inputClasses = '';
+        if (this.props.changeble) {
+            inputClasses += 'hidden '
+        }
         return (
-            <canvas className="chart" ref="canvas" width={this.props.width} height={this.props.height}/>
+            <div className='canvas-container'>
+                <p>{this.props.title}</p>
+                <canvas className="chart" ref="canvas" width={this.props.width} height={this.props.height}/>
+                <input className={inputClasses} type="text" value={this.state.statistics} onChange={this.handleChange} placeholder='Введите числа через запятую'/>
+            </div>
         );
     }
 }
