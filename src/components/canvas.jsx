@@ -139,15 +139,10 @@ class Canvas extends React.Component {
     }
 
     render() {
-        let inputClasses = '';
-        if (this.props.changeble) {
-            inputClasses += 'hidden '
-        }
         return (
             <div className='canvas-container'>
-                <p>{this.props.title}</p>
                 <canvas className="chart" ref="canvas" width={this.props.width} height={this.props.height}/>
-                <input className={inputClasses} type="text" value={this.state.statistics} onChange={this.handleChange} placeholder='Введите числа через запятую'/>
+                <input type="text" value={this.state.statistics} onChange={this.handleChange} placeholder='Введите числа через запятую'/>
             </div>
         );
     }
